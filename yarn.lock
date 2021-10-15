@@ -640,6 +640,11 @@
     tslib "2.3.1"
     uuid "8.3.2"
 
+"@nestjs/mapped-types@*":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-1.0.0.tgz#52a0441795f6da8144a35970d3ebc19281f31cfd"
+  integrity sha512-26AW5jHadLXtvHs+M+Agd9KZ92dDlBrmD0rORlBlvn2KvsWs4JRaKl2mUsrW7YsdZeAu3Hc4ukqyYyDdyCmMWQ==
+
 "@nestjs/platform-express@^8.0.0":
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-8.1.1.tgz#33545402def3dd45219dcb9165db456bf8f239b2"
@@ -700,7 +705,7 @@
     consola "^2.15.0"
     node-fetch "^2.6.1"
 
-"@prisma/client@3.2.1":
+"@prisma/client@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.2.1.tgz#b0c60b4c42ec5b701a271380780c70de55bc3311"
   integrity sha512-nakt9YoDFD4cgTkRTSVbzG40AKmmbVEtXE3csVqBdDXsm0/L4PQdtbtzILNzq28xv8HH8oHgFKWnsItM23mSDw==
