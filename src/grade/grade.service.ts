@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -10,54 +10,82 @@ export class GradeService {
 
   async create(createGradesDto: CreateGradeDto) {
     createGradesDto.id = uuid();
-
-    return await this.prisma.grades.create({
-      data: {
-        id: createGradesDto.id,
-        first_bimester: 0,
-        second_bimester: 0,
-        third_bimester: 0,
-        fourth_bimester: 0,
-        studentId: createGradesDto.studentId,
-        classId: createGradesDto.classId,
-      },
-    });
+    try {
+      return await this.prisma.grades.create({
+        data: {
+          id: createGradesDto.id,
+          first_bimester: 0,
+          second_bimester: 0,
+          third_bimester: 0,
+          fourth_bimester: 0,
+          studentId: createGradesDto.studentId,
+          classId: createGradesDto.classId,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async findAll() {
-    return await this.prisma.grades.findMany();
+    try {
+      return await this.prisma.grades.findMany();
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async findOne(id: string) {
-    return await this.prisma.grades.findFirst({
-      where: {
-        id: id,
-      },
-    });
+    try {
+      return await this.prisma.grades.findFirst({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
-  async findByStudentName(studentId: string) {
-    return await this.prisma.grades.findMany({
-      where: {
-        studentId: studentId,
-      },
-    });
+  async findByName(studentId: string) {
+    try {
+      return await this.prisma.grades.findMany({
+        where: {
+          studentId: studentId,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
-  async update(id: string, updateGradesDto: UpdateGradeDto) {
-    return await this.prisma.grades.update({
-      data: updateGradesDto,
-      where: {
-        id: id,
-      },
-    });
+  async update(id: string, updateGradeDto: UpdateGradeDto) {
+    try {
+      return await this.prisma.grades.update({
+        data: {
+          first_bimester: updateGradeDto.first_bimester,
+          second_bimester: updateGradeDto.second_bimester,
+          third_bimester: updateGradeDto.third_bimester,
+          fourth_bimester: updateGradeDto.fourth_bimester,
+        },
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async remove(id: string) {
-    return await this.prisma.grades.delete({
-      where: {
-        id: id,
-      },
-    });
+    try {
+      return await this.prisma.grades.delete({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 }

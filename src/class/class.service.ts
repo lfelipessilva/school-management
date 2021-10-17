@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
@@ -11,43 +11,76 @@ export class ClassService {
 
   async create(createClassDto: CreateClassDto) {
     createClassDto.id = uuid();
-    return await this.prisma.classes.create({ data: createClassDto });
+    try {
+      return await this.prisma.classes.create({
+        data: {
+          id: createClassDto.id,
+          name: createClassDto.name,
+          teacherId: createClassDto.teacherId,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async findAll() {
-    return await this.prisma.classes.findMany();
+    try {
+      return await this.prisma.classes.findMany();
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async findOne(id: string) {
-    return await this.prisma.classes.findFirst({
-      where: {
-        id: id,
-      },
-    });
+    try {
+      return await this.prisma.classes.findFirst({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async findByName(name: string) {
-    return await this.prisma.classes.findMany({
-      where: {
-        name: name,
-      },
-    });
+    try {
+      return await this.prisma.classes.findMany({
+        where: {
+          name: name,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async update(id: string, updateClassDto: UpdateClassDto) {
-    return await this.prisma.classes.update({
-      data: updateClassDto,
-      where: {
-        id: id,
-      },
-    });
+    try {
+      return await this.prisma.classes.update({
+        data: {
+          name: updateClassDto.name,
+          teacherId: updateClassDto.teacherId,
+        },
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async remove(id: string) {
-    return await this.prisma.classes.delete({
-      where: {
-        id: id,
-      },
-    });
+    try {
+      return await this.prisma.classes.delete({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 }
