@@ -11,19 +11,19 @@ generator client {
 }
 
 model Teacher {
-  id        String   @id @unique
+  id        String    @id @unique
   name      String
-  cpf       String   @unique
-  class     Classes?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  cpf       String    @unique
+  classes   Classes[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
 }
 
 model Student {
   id        String   @id @unique
   name      String
   cpf       String   @unique
-  grade     Grades?
+  grades    Grades[]
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
@@ -33,17 +33,17 @@ model Classes {
   name      String   @unique
   teacher   Teacher  @relation(fields: [teacherId], references: [id])
   teacherId String   @unique
-  grade     Grades?
+  grades    Grades[]
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
 
 model Grades {
   id              String   @id @unique
-  first_bimester  Float
-  second_bimester Float
-  third_bimester  Float
-  fourth_bimester Float
+  first_bimester  Float?
+  second_bimester Float?
+  third_bimester  Float?
+  fourth_bimester Float?
   student         Student  @relation(fields: [studentId], references: [id])
   studentId       String   @unique
   class           Classes  @relation(fields: [classId], references: [id])

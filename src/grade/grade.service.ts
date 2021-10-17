@@ -47,11 +47,14 @@ export class GradeService {
     }
   }
 
-  async findByName(studentId: string) {
+  async findByStudentId(studentId: string) {
     try {
       return await this.prisma.grades.findMany({
         where: {
           studentId: studentId,
+        },
+        include: {
+          student: true,
         },
       });
     } catch (error) {

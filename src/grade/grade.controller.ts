@@ -30,6 +30,11 @@ export class GradeController {
     return this.gradeService.findOne(id);
   }
 
+  @Post(':id')
+  findByStudentId(@Param('student') studentId: string) {
+    return this.gradeService.findByStudentId(studentId);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGradeDto: UpdateGradeDto) {
     return this.gradeService.update(id, updateGradeDto);

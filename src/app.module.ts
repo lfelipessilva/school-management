@@ -8,7 +8,13 @@ import { StudentModule } from './student/student.module';
 import { GradeModule } from './grade/grade.module';
 import { ClassModule } from './class/class.module';
 @Module({
-  imports: [TeacherModule, PrismaModule, StudentModule, GradeModule, ClassModule],
+  imports: [
+    TeacherModule,
+    PrismaModule,
+    StudentModule,
+    GradeModule,
+    ClassModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
